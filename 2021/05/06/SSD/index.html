@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://bestsongc.github.io/SSD/18.png">
 <meta property="og:image" content="http://bestsongc.github.io/SSD/19.png">
 <meta property="article:published_time" content="2021-05-06T06:48:17.196Z">
-<meta property="article:modified_time" content="2021-05-06T07:16:43.581Z">
+<meta property="article:modified_time" content="2021-05-06T07:27:44.468Z">
 <meta property="article:author" content="Chen Song">
 <meta property="article:tag" content="SSD">
 <meta name="twitter:card" content="summary">
@@ -56,23 +56,23 @@ var CONFIG = {
 window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/reading/"><span class="header-nav-menu-item__icon"><i class="fas fa-book"></i></span><span class="header-nav-menu-item__text">Reading</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/image/"><span class="header-nav-menu-item__icon"><i class="fas fa-image"></i></span><span class="header-nav-menu-item__text">Image</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Bestsong &amp;&amp; Bestliu</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Object Detection --- SSD</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-05-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-05-06</span></span></div></header><div class="post-body">
         <h1 id="SSD-Single-Shot-MultiBox-Detector"   >
           <a href="#SSD-Single-Shot-MultiBox-Detector" class="heading-link"><i class="fas fa-link"></i></a><a href="#SSD-Single-Shot-MultiBox-Detector" class="headerlink" title="SSD: Single Shot MultiBox Detector"></a>SSD: Single Shot MultiBox Detector</h1>
-      <p>单阶段检测器，SSD300 achieves 74.3% mAP at 59 FPS while** SSD500 achieves 76.9% mAP at 22 FPS。使用数据增强技巧后，SSD300 achieves 77.2% mAP while **SSD500 achieves 79.8% mAP。</p>
+      <p>单阶段检测器，SSD300 achieves 74.3% mAP at 59 FPS while SSD500 achieves 76.9% mAP at 22 FPS。使用数据增强技巧后，SSD300 achieves 77.2% mAP while SSD500 achieves 79.8% mAP。</p>
 
         <h2 id="Overview"   >
           <a href="#Overview" class="heading-link"><i class="fas fa-link"></i></a><a href="#Overview" class="headerlink" title="Overview"></a><strong>Overview</strong></h2>
-      <p>作为one-stage模型，SSD以VGG-16为主干网络，在不同尺度的feature maps下进行辨别的工作，这样的机制被称为 <em>Pyramidal Feature Hierarchy</em>。</p>
+      <p>作为one-stage模型，SSD以VGG-16为主干网络，在不同尺度的feature maps下进行辨别的工作，这样的机制被称为 Pyramidal Feature Hierarchy。</p>
 <p><img src="/SSD/1.png" alt="1"></p>
 <p><strong>SSD overview</strong></p>
 
         <h2 id="MultiBox-Detector"   >
           <a href="#MultiBox-Detector" class="heading-link"><i class="fas fa-link"></i></a><a href="#MultiBox-Detector" class="headerlink" title="MultiBox Detector"></a><strong>MultiBox Detector</strong></h2>
       <p><img src="/SSD/2.png" alt="2"></p>
-<p>a)  After going through a certain of convolutions for feature extraction, we obtain <strong>a feature layer of size <em><strong>m</strong></em>×*</strong>n (<em>8×8 or 4×4) with P channels. And a 3×3 conv is applied on this <em>m</em>×</em>n<em>×</em>p* feature layer.</p>
-<p>b)  **For each location, we got <em><strong>k</strong></em> bounding boxes. **These k bounding boxes have different sizes and aspect ratios.</p>
-<p>c)  **For each of the bounding box, we will compute <em>c</em> class scores and 4 offsets relative to the original default bounding box shape.<strong>Thus, we got (<em>c</em>+4</strong>)<strong><em>kmn*</em> *outputs.</strong></p>
+<p>a)  After going through a certain of convolutions for feature extraction, we obtain a feature layer of size m×n (8×8 or 4×4) with P channels. And a 3×3 conv is applied on this <em>m</em>×<em>n</em>×<em>p</em> feature layer.</p>
+<p>b)  For each location, we got <em>k</em> bounding boxes. These k bounding boxes have different sizes and aspect ratios.</p>
+<p>c)  For each of the bounding box, we will compute <em>c</em> class scores and 4 offsets relative to the original default bounding box shape.Thus, we got (<em>c</em>+4**)***kmn outputs.</p>
 
-        <h2 id="3-SSD300-Network-Architecture"   >
-          <a href="#3-SSD300-Network-Architecture" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-SSD300-Network-Architecture" class="headerlink" title="3. SSD300 Network Architecture"></a>3. <strong>SSD300 Network Architecture</strong></h2>
+        <h2 id="SSD300-Network-Architecture"   >
+          <a href="#SSD300-Network-Architecture" class="heading-link"><i class="fas fa-link"></i></a><a href="#SSD300-Network-Architecture" class="headerlink" title="SSD300 Network Architecture"></a><strong>SSD300 Network Architecture</strong></h2>
       <p><img src="/SSD/3.png" alt="3"></p>
 <p>At Conv4_3, it is of size 38×38×512 and 3×3 conv is applied. And there are 4 bounding boxes and each bounding box will have (classes + 4) outputs. Thus, at Conv4_3, the output is 38×38×4×(<em>c</em>+4). Suppose there are 20 object classes plus one background class, the output is 38×38×4×(21+4) = 144,400. In terms of number of bounding boxes, there are 38×38×4 = 5776 bounding boxes.</p>
 <p>a)  Conv4: 38×38×4 = 5776 boxes (4 boxes for each location)</p>
@@ -84,8 +84,8 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p><strong>There are 5776 + 2166 + 600 + 150 + 36 +4</strong> = <strong>8732 boxes in total</strong></p>
 <p>取出feature map之后，SSD通过一次3×3的卷积得到用于detector的神经层。而卷积的深度就是与default box有关。若假定default box数量为D，而目标类别有C个类别，边界框有4个值(x，y，w，h)的偏差量(offsets)，所以深度的计算就是D×(4+C)。</p>
 
-        <h2 id="4-Loss-Function"   >
-          <a href="#4-Loss-Function" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-Loss-Function" class="headerlink" title="4. Loss Function"></a>4. Loss Function</h2>
+        <h2 id="Loss-Function"   >
+          <a href="#Loss-Function" class="heading-link"><i class="fas fa-link"></i></a><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h2>
       <p><img src="/SSD/4.png" alt="4"></p>
 <p>The loss function consists of two terms: L<del>conf</del> and L<del>loc</del> where N is the matched default boxes.</p>
 <p><img src="/SSD/5.png" alt="5"></p>
@@ -97,8 +97,8 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p><strong>Confidence Loss</strong></p>
 <p>L<del>conf</del> is the confidence loss which is the softmax loss over multiple classes confidences (c). (α is set to 1 by cross validation.) <em>x<del>i\ j</del> ^p^</em> = {1,0}, is an indicator for matching <em>i</em>-th default box to the <em>j</em>-th ground truth box of category <em>p</em>.</p>
 
-        <h2 id="5-Scales-and-Aspect-Ratios-of-Default-Boxes"   >
-          <a href="#5-Scales-and-Aspect-Ratios-of-Default-Boxes" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-Scales-and-Aspect-Ratios-of-Default-Boxes" class="headerlink" title="**5. **Scales and Aspect Ratios of Default Boxes"></a>**5. **Scales and Aspect Ratios of Default Boxes</h2>
+        <h2 id="Scales-and-Aspect-Ratios-of-Default-Boxes"   >
+          <a href="#Scales-and-Aspect-Ratios-of-Default-Boxes" class="heading-link"><i class="fas fa-link"></i></a><a href="#Scales-and-Aspect-Ratios-of-Default-Boxes" class="headerlink" title="Scales and Aspect Ratios of Default Boxes"></a>Scales and Aspect Ratios of Default Boxes</h2>
       <p><img src="/SSD/8.png" alt="8"></p>
 <p><strong>Scale of Default Boxes</strong></p>
 <p>Suppose we have <em>m</em> feature maps for prediction, we can calculate <em>S<del>k</del></em> for the <em>k</em>-th feature map. S<del>min</del> is 0.2, S<del>max</del> is 0.9. That means the scale at the lowest layer is 0.2 and the scale at the highest layer is 0.9. All layers in between is regularly spaced.</p>
@@ -108,34 +108,34 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p><img src="/SSD/12.png" alt="12"></p>
 <p>Therefore, we can have at most 6 bounding boxes in total with different aspect ratios. For layers with only 4 bounding boxes, a<del>r</del> = 1/3 and 3 are omitted.</p>
 
-        <h2 id="6-Details-of-Training"   >
-          <a href="#6-Details-of-Training" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-Details-of-Training" class="headerlink" title="6.Details of Training"></a>6.Details of Training</h2>
+        <h2 id="Details-of-Training"   >
+          <a href="#Details-of-Training" class="heading-link"><i class="fas fa-link"></i></a><a href="#Details-of-Training" class="headerlink" title="Details of Training"></a>Details of Training</h2>
       
-        <h3 id="6-1-Hard-Negative-Mining"   >
-          <a href="#6-1-Hard-Negative-Mining" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-1-Hard-Negative-Mining" class="headerlink" title="6.1 Hard Negative Mining"></a>6.1 Hard Negative Mining</h3>
+        <h3 id="Hard-Negative-Mining"   >
+          <a href="#Hard-Negative-Mining" class="heading-link"><i class="fas fa-link"></i></a><a href="#Hard-Negative-Mining" class="headerlink" title="Hard Negative Mining"></a>Hard Negative Mining</h3>
       <p>Instead of using all the negative examples, we sort them using the highest confidence loss for each default box and pick the top ones so that the ratio between the negatives and positives is at most 3:1.This can lead to faster optimization and a more stable training.</p>
 
-        <h3 id="6-2-Data-Augmentation"   >
-          <a href="#6-2-Data-Augmentation" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-2-Data-Augmentation" class="headerlink" title="6.2 Data Augmentation"></a>6.2 Data Augmentation</h3>
+        <h3 id="Data-Augmentation"   >
+          <a href="#Data-Augmentation" class="heading-link"><i class="fas fa-link"></i></a><a href="#Data-Augmentation" class="headerlink" title="Data Augmentation"></a>Data Augmentation</h3>
       <p>Each training image is randomly sampled by:</p>
 <p>a)  entire original input image</p>
 <p>b)  Sample a patch so that the overlap with objects is 0.1, 0.3, 0.5, 0.7 or 0.9.</p>
 <p>c)  Randomly sample a patch</p>
 <p>The size of each sampled patch is [0.1, 1] or original image size, and aspect ratio from 1/2 to 2.** After the above steps, each sampled patch will be resized to fixed size and maybe horizontally flipped with probability of 0.5, in addition to some photo-metric distortions.**</p>
 
-        <h3 id="6-3-Atrous-Convolution-Hole-Algorithm-Dilated-Convolution"   >
-          <a href="#6-3-Atrous-Convolution-Hole-Algorithm-Dilated-Convolution" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-3-Atrous-Convolution-Hole-Algorithm-Dilated-Convolution" class="headerlink" title="6.3 Atrous Convolution (Hole Algorithm / Dilated Convolution)"></a>6.3 Atrous Convolution (Hole Algorithm / Dilated Convolution)</h3>
+        <h3 id="Atrous-Convolution-Hole-Algorithm-Dilated-Convolution"   >
+          <a href="#Atrous-Convolution-Hole-Algorithm-Dilated-Convolution" class="heading-link"><i class="fas fa-link"></i></a><a href="#Atrous-Convolution-Hole-Algorithm-Dilated-Convolution" class="headerlink" title="Atrous Convolution (Hole Algorithm / Dilated Convolution)"></a>Atrous Convolution (Hole Algorithm / Dilated Convolution)</h3>
       <p>The base network is VGG16 and pre-trained using ILSVRC classification dataset. FC6 and FC7 are changed to convolution layers as Conv6 and Conv7. Furthermore, FC6 and FC7 use Atrous convolution (Hole algorithm or dilated convolution) instead of conventional convolution. And pool5 is changed from 2×2-s2 to 3×3-s1**.**</p>
 <p>参考博客：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://towardsdatascience.com/review-ssd-single-shot-detector-object-detection-851a94607d11" >[https://towardsdatascience.com/review-ssd-single-shot-detector-object-detection-851a94607d11]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p>简单例子，普通卷积3*3计算一个值，空洞卷积5*5计算一个值</p>
 <p>The feature maps are large at Conv6 and Conv7, using Atrous convolution as shown above can increase the receptive field while keeping number of parameters relatively fewer compared with conventional convolution. </p>
 
-        <h2 id="7-Results"   >
-          <a href="#7-Results" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-Results" class="headerlink" title="7. Results"></a>7. Results</h2>
+        <h2 id="Results"   >
+          <a href="#Results" class="heading-link"><i class="fas fa-link"></i></a><a href="#Results" class="headerlink" title="Results"></a>Results</h2>
       <p>There are two Models: SSD300 and SSD512. SSD300: 300×300 input image, lower resolution, faster.<br>SSD512: 512×512 input image, higher resolution, more accurate.</p>
 
-        <h3 id="7-1-Model-Analysis"   >
-          <a href="#7-1-Model-Analysis" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-1-Model-Analysis" class="headerlink" title="7.1 Model Analysis"></a>7.1 Model Analysis</h3>
+        <h3 id="Model-Analysis"   >
+          <a href="#Model-Analysis" class="heading-link"><i class="fas fa-link"></i></a><a href="#Model-Analysis" class="headerlink" title="Model Analysis"></a>Model Analysis</h3>
       <p><img src="/SSD/13.png" alt="13"></p>
 <p><strong>Model analysis</strong></p>
 <p>a)  Data Augmentation is crucial, which improves from 65.5% to 74.3% mAP.</p>
@@ -146,67 +146,66 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p>是否使用使用boundry boxes? ---- 是否剔除超出边界的bbox</p>
 <p>With more output from conv layers, more bounding boxes are included. Normally, the accuracy is improved from 62.4% to 74.6%. However, the inclusion of conv11_2 makes the result worse. Authors think that boxes are not enough large to cover large objects.</p>
 
-        <h3 id="7-2-PASCAL-VOC-2007"   >
-          <a href="#7-2-PASCAL-VOC-2007" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-2-PASCAL-VOC-2007" class="headerlink" title="7.2 PASCAL VOC 2007"></a>7.2 PASCAL VOC 2007</h3>
+        <h3 id="PASCAL-VOC-2007"   >
+          <a href="#PASCAL-VOC-2007" class="heading-link"><i class="fas fa-link"></i></a><a href="#PASCAL-VOC-2007" class="headerlink" title="PASCAL VOC 2007"></a>PASCAL VOC 2007</h3>
       <p><img src="/SSD/15.png" alt="15"></p>
 <p>Pascal VOC 2007 Dataset</p>
 <p>a)  更多的训练图片带来更好的检测准确率</p>
 <p>b)  SSD512有68.0%的mAP 并且SSD300有71.6% mAP 都优于Faster R-CNN的69.9%mAP.</p>
 
-        <h3 id="7-3-PASCAL-VOC-2012"   >
-          <a href="#7-3-PASCAL-VOC-2012" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-3-PASCAL-VOC-2012" class="headerlink" title="7.3 PASCAL VOC 2012"></a>7.3 PASCAL VOC 2012</h3>
+        <h3 id="PASCAL-VOC-2012"   >
+          <a href="#PASCAL-VOC-2012" class="heading-link"><i class="fas fa-link"></i></a><a href="#PASCAL-VOC-2012" class="headerlink" title="PASCAL VOC 2012"></a>PASCAL VOC 2012</h3>
       <p><img src="/SSD/16.png" alt="16"></p>
 <p><strong>Pascal VOC 2012 Dataset</strong></p>
 
-        <h3 id="7-4-MS-COCO"   >
-          <a href="#7-4-MS-COCO" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-4-MS-COCO" class="headerlink" title="7.4 MS COCO"></a>7.4 MS COCO</h3>
+        <h3 id="MS-COCO"   >
+          <a href="#MS-COCO" class="heading-link"><i class="fas fa-link"></i></a><a href="#MS-COCO" class="headerlink" title="MS COCO"></a>MS COCO</h3>
       <p><img src="/SSD/17.png" alt="17"></p>
 <p><strong>MS COCO Dataset</strong></p>
 <p>a)  SSD512 is only 1.2% better than Faster R-CNN in mAP@0.5. This is because it has much better AP (4.8%) and AR (4.6%) for larger objects, but has relatively less improvement in AP (1.3%) and AR (2.0%) for small objects.</p>
 <p>b)  Faster R-CNN is more competitive on smaller objects with SSD. Authors believe it is due to the RPN-based approaches which consist of two shots(在RPN阶段和分类预测都有offset调整).</p>
 
-        <h3 id="7-5-Data-Augmentation-for-Small-Object-Accuracy"   >
-          <a href="#7-5-Data-Augmentation-for-Small-Object-Accuracy" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-5-Data-Augmentation-for-Small-Object-Accuracy" class="headerlink" title="7.5 Data Augmentation for Small Object Accuracy"></a>7.5 Data Augmentation for Small Object Accuracy</h3>
+        <h3 id="Data-Augmentation-for-Small-Object-Accuracy"   >
+          <a href="#Data-Augmentation-for-Small-Object-Accuracy" class="heading-link"><i class="fas fa-link"></i></a><a href="#Data-Augmentation-for-Small-Object-Accuracy" class="headerlink" title="Data Augmentation for Small Object Accuracy"></a>Data Augmentation for Small Object Accuracy</h3>
       <p>To overcome the weakness of missing detection on small object as mentioned in 6.4, “zoom out” operation is done to create more small training samples.** **And an increase of 2%-3% mAP is achieved across multiple datasets as shown below:</p>
 <p><img src="/SSD/18.png" alt="18"></p>
 <p><strong>Data Augmentation for Small Object Accuracy</strong></p>
 
-        <h3 id="7-6-Inference-Time"   >
-          <a href="#7-6-Inference-Time" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-6-Inference-Time" class="headerlink" title="7.6 Inference Time"></a>7.6 Inference Time</h3>
+        <h3 id="Inference-Time"   >
+          <a href="#Inference-Time" class="heading-link"><i class="fas fa-link"></i></a><a href="#Inference-Time" class="headerlink" title="Inference Time"></a>Inference Time</h3>
       <p><img src="/SSD/19.png" alt="19"></p>
 <p><strong>Inference Time</strong></p>
 
         <h2 id="Appendix"   >
           <a href="#Appendix" class="heading-link"><i class="fas fa-link"></i></a><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2>
-      <p>Anchor生成过程：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/wfei101/article/details/79323480" >[https://blog.csdn.net/wfei101/article/details/79323480]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/xunan003/article/details/79186162" >[https://blog.csdn.net/xunan003/article/details/79186162]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>笔记博客：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://towardsdatascience.com/review-ssd-single-shot-detector-object-detection-851a94607d11" >[https://towardsdatascience.com/review-ssd-single-shot-detector-object-detection-851a94607d11]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>参考博客：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://towardsdatascience.com/understanding-ssd-multibox-real-time-object-detection-in-deep-learning-495ef744fab" >[https://towardsdatascience.com/understanding-ssd-multibox-real-time-object-detection-in-deep-learning-495ef744fab]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>参考博客：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://yuweichiu.github.io/object%20detection/deep%20learning/Object-Detection-S6-SSD/" >[https://yuweichiu.github.io/object%20detection/deep%20learning/Object-Detection-S6-SSD/]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>参考博客：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.sohu.com/a/168738025_717210" >[http://www.sohu.com/a/168738025_717210]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>论文翻译：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/alibabazhouyu/article/details/79987447" >[https://blog.csdn.net/alibabazhouyu/article/details/79987447]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>SSD-Slides：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.slideshare.net/xavigiro/ssd-single-shot-multibox-detector" >[https://www.slideshare.net/xavigiro/ssd-single-shot-multibox-detector]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>深度学习必须要了解的技巧： [ ]{.underline}</p>
-<p>作者github：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/weiliu89/caffe/tree/ssd" >[https://github.com/weiliu89/caffe/tree/ssd]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>Pytorch-SSD：[[<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/amdegroot/ssd.pytorch]%7B.underline%7D]" >https://github.com/amdegroot/ssd.pytorch]{.underline}]</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>(</p>
+      <p>Anchor生成过程：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/wfei101/article/details/79323480" >https://blog.csdn.net/wfei101/article/details/79323480</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/xunan003/article/details/79186162" >https://blog.csdn.net/xunan003/article/details/79186162</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>笔记博客：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://towardsdatascience.com/review-ssd-single-shot-detector-object-detection-851a94607d11" >https://towardsdatascience.com/review-ssd-single-shot-detector-object-detection-851a94607d11</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>参考博客：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://towardsdatascience.com/understanding-ssd-multibox-real-time-object-detection-in-deep-learning-495ef744fab" >https://towardsdatascience.com/understanding-ssd-multibox-real-time-object-detection-in-deep-learning-495ef744fab</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>参考博客：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://yuweichiu.github.io/object%20detection/deep%20learning/Object-Detection-S6-SSD/" >https://yuweichiu.github.io/object%20detection/deep%20learning/Object-Detection-S6-SSD/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>参考博客：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.sohu.com/a/168738025_717210" >http://www.sohu.com/a/168738025717210</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>论文翻译：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/alibabazhouyu/article/details/79987447" >https://blog.csdn.net/alibabazhouyu/article/details/79987447</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>SSD-Slides：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.slideshare.net/xavigiro/ssd-single-shot-multibox-detector" >https://www.slideshare.net/xavigiro/ssd-single-shot-multibox-detector</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>深度学习必须要了解的技巧：</p>
+<p>作者github：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/weiliu89/caffe/tree/ssd" >https://github.com/weiliu89/caffe/tree/ssd</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="http://bestsongc.github.io">Chen Song</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="http://bestsongc.github.io/2021/05/06/SSD/">http://bestsongc.github.io/2021/05/06/SSD/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://bestsongc.github.io/tags/SSD/">SSD</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/05/06/Blog/"><span class="paginator-prev__text">Blog</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC81MzQwMi8yOTg3Ng"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSD-Single-Shot-MultiBox-Detector"><span class="toc-number">1.</span> <span class="toc-text">
           SSD: Single Shot MultiBox Detector</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Overview"><span class="toc-number">1.1.</span> <span class="toc-text">
           Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MultiBox-Detector"><span class="toc-number">1.2.</span> <span class="toc-text">
-          MultiBox Detector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-SSD300-Network-Architecture"><span class="toc-number">1.3.</span> <span class="toc-text">
-          3. SSD300 Network Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Loss-Function"><span class="toc-number">1.4.</span> <span class="toc-text">
-          4. Loss Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Scales-and-Aspect-Ratios-of-Default-Boxes"><span class="toc-number">1.5.</span> <span class="toc-text">
-          **5. **Scales and Aspect Ratios of Default Boxes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Details-of-Training"><span class="toc-number">1.6.</span> <span class="toc-text">
-          6.Details of Training</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-Hard-Negative-Mining"><span class="toc-number">1.6.1.</span> <span class="toc-text">
-          6.1 Hard Negative Mining</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-Data-Augmentation"><span class="toc-number">1.6.2.</span> <span class="toc-text">
-          6.2 Data Augmentation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-Atrous-Convolution-Hole-Algorithm-Dilated-Convolution"><span class="toc-number">1.6.3.</span> <span class="toc-text">
-          6.3 Atrous Convolution (Hole Algorithm &#x2F; Dilated Convolution)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Results"><span class="toc-number">1.7.</span> <span class="toc-text">
-          7. Results</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-Model-Analysis"><span class="toc-number">1.7.1.</span> <span class="toc-text">
-          7.1 Model Analysis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-PASCAL-VOC-2007"><span class="toc-number">1.7.2.</span> <span class="toc-text">
-          7.2 PASCAL VOC 2007</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-PASCAL-VOC-2012"><span class="toc-number">1.7.3.</span> <span class="toc-text">
-          7.3 PASCAL VOC 2012</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-MS-COCO"><span class="toc-number">1.7.4.</span> <span class="toc-text">
-          7.4 MS COCO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-Data-Augmentation-for-Small-Object-Accuracy"><span class="toc-number">1.7.5.</span> <span class="toc-text">
-          7.5 Data Augmentation for Small Object Accuracy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-Inference-Time"><span class="toc-number">1.7.6.</span> <span class="toc-text">
-          7.6 Inference Time</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appendix"><span class="toc-number">1.8.</span> <span class="toc-text">
+          MultiBox Detector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSD300-Network-Architecture"><span class="toc-number">1.3.</span> <span class="toc-text">
+          SSD300 Network Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Loss-Function"><span class="toc-number">1.4.</span> <span class="toc-text">
+          Loss Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scales-and-Aspect-Ratios-of-Default-Boxes"><span class="toc-number">1.5.</span> <span class="toc-text">
+          Scales and Aspect Ratios of Default Boxes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Details-of-Training"><span class="toc-number">1.6.</span> <span class="toc-text">
+          Details of Training</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hard-Negative-Mining"><span class="toc-number">1.6.1.</span> <span class="toc-text">
+          Hard Negative Mining</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Augmentation"><span class="toc-number">1.6.2.</span> <span class="toc-text">
+          Data Augmentation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Atrous-Convolution-Hole-Algorithm-Dilated-Convolution"><span class="toc-number">1.6.3.</span> <span class="toc-text">
+          Atrous Convolution (Hole Algorithm &#x2F; Dilated Convolution)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Results"><span class="toc-number">1.7.</span> <span class="toc-text">
+          Results</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-Analysis"><span class="toc-number">1.7.1.</span> <span class="toc-text">
+          Model Analysis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PASCAL-VOC-2007"><span class="toc-number">1.7.2.</span> <span class="toc-text">
+          PASCAL VOC 2007</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PASCAL-VOC-2012"><span class="toc-number">1.7.3.</span> <span class="toc-text">
+          PASCAL VOC 2012</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MS-COCO"><span class="toc-number">1.7.4.</span> <span class="toc-text">
+          MS COCO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Augmentation-for-Small-Object-Accuracy"><span class="toc-number">1.7.5.</span> <span class="toc-text">
+          Data Augmentation for Small Object Accuracy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inference-Time"><span class="toc-number">1.7.6.</span> <span class="toc-text">
+          Inference Time</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appendix"><span class="toc-number">1.8.</span> <span class="toc-text">
           Appendix</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/avatar.png" alt="avatar"></div><p class="sidebar-ov-author__text">Hello World</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-google"></i></span></a><a class="sidebar-ov-social-item" href="https://twitter.com/" target="_blank" rel="noopener" data-popover="Twitter" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-twitter"></i></span></a><a class="sidebar-ov-social-item" href="https://youtube.com/" target="_blank" rel="noopener" data-popover="Youtube" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-youtube"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/" target="_blank" rel="noopener" data-popover="Segmentfault" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a><a class="sidebar-ov-social-item" href="https://weibo.com/" target="_blank" rel="noopener" data-popover="Weibo" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weibo"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="yournumber" target="_blank" rel="noopener" data-popover="Wechat" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a><a class="sidebar-ov-social-item" href="yournumber" target="_blank" rel="noopener" data-popover="Telegram" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-telegram"></i></span></a><a class="sidebar-ov-social-item" href="yournumber" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Chen Song</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script>function loadLivere () {
   var d = document, s = d.createElement('script');
 
