@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://bestsongc.github.io/SSD/18.png">
 <meta property="og:image" content="http://bestsongc.github.io/SSD/19.png">
 <meta property="article:published_time" content="2021-05-06T06:48:17.196Z">
-<meta property="article:modified_time" content="2021-05-06T07:40:50.301Z">
+<meta property="article:modified_time" content="2021-05-06T07:57:15.794Z">
 <meta property="article:author" content="Chen Song">
 <meta property="article:tag" content="SSD">
 <meta name="twitter:card" content="summary">
@@ -62,19 +62,20 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
           <a href="#Overview" class="heading-link"><i class="fas fa-link"></i></a><a href="#Overview" class="headerlink" title="Overview"></a><strong>Overview</strong></h2>
       <p>作为one-stage模型，SSD以VGG-16为主干网络，在不同尺度的feature maps下进行辨别的工作，这样的机制被称为 Pyramidal Feature Hierarchy。</p>
 <p><img src="/SSD/1.png" alt="1"></p>
-<p><strong>SSD overview</strong></p>
+<center>SSD overview</center>
+
 
         <h2 id="MultiBox-Detector"   >
           <a href="#MultiBox-Detector" class="heading-link"><i class="fas fa-link"></i></a><a href="#MultiBox-Detector" class="headerlink" title="MultiBox Detector"></a><strong>MultiBox Detector</strong></h2>
       <p><img src="/SSD/2.png" alt="2"></p>
 <p>a)  After going through a certain of convolutions for feature extraction, we obtain a feature layer of size m×n (8×8 or 4×4) with P channels. And a 3×3 conv is applied on this <em>m</em>×<em>n</em>×<em>p</em> feature layer.</p>
-<p>b)  For each location, we got <em>k</em> bounding boxes. These k bounding boxes have different sizes and aspect ratios.</p>
-<p>c)  For each of the bounding box, we will compute <em>c</em> class scores and 4 offsets relative to the original default bounding box shape.Thus, we got (<em>c</em>+4**)***kmn outputs.</p>
+<p>b)  For each location, we got k bounding boxes. These k bounding boxes have different sizes and aspect ratios.</p>
+<p>c)  For each of the bounding box, we will compute c class scores and 4 offsets relative to the original default bounding box shape.Thus, we got (c+4)xkmn outputs.</p>
 
         <h2 id="SSD300-Network-Architecture"   >
           <a href="#SSD300-Network-Architecture" class="heading-link"><i class="fas fa-link"></i></a><a href="#SSD300-Network-Architecture" class="headerlink" title="SSD300 Network Architecture"></a><strong>SSD300 Network Architecture</strong></h2>
       <p><img src="/SSD/3.png" alt="3"></p>
-<p>At Conv4_3, it is of size 38×38×512 and 3×3 conv is applied. And there are 4 bounding boxes and each bounding box will have (classes + 4) outputs. Thus, at Conv4_3, the output is 38×38×4×(<em>c</em>+4). Suppose there are 20 object classes plus one background class, the output is 38×38×4×(21+4) = 144,400. In terms of number of bounding boxes, there are 38×38×4 = 5776 bounding boxes.</p>
+<p>At Conv4_3, it is of size 38×38×512 and 3×3 conv is applied. And there are 4 bounding boxes and each bounding box will have (classes + 4) outputs. Thus, at Conv4_3, the output is 38×38×4×(c+4). Suppose there are 20 object classes plus one background class, the output is 38×38×4×(21+4) = 144,400. In terms of number of bounding boxes, there are 38×38×4 = 5776 bounding boxes.</p>
 <p>a)  Conv4: 38×38×4 = 5776 boxes (4 boxes for each location)</p>
 <p>b)  Conv7: 19×19×6 = 2166 boxes (6 boxes for each location)</p>
 <p>c)  Conv8_2: 10×10×6 = 600 boxes (6 boxes for each location)</p>
@@ -92,15 +93,18 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p><strong>Localization Loss</strong></p>
 <p>L<del>loc</del> is the localization loss which is the smooth L1 loss between the predicted box (l) and the ground-truth box (g) parameters. These parameters include the offsets for the center point (cx, cy), width (w) and height (h) of the default bounding box. This loss is similar to the one in Faster R-CNN.</p>
 <p><img src="/SSD/6.png" alt="6"></p>
-<p><strong>smooth L1函数</strong></p>
+<center>Smooth L1</center>
+
 <p><img src="/SSD/7.png" alt="7"></p>
-<p><strong>Confidence Loss</strong></p>
-<p>L<del>conf</del> is the confidence loss which is the softmax loss over multiple classes confidences (c). (α is set to 1 by cross validation.) <em>x<del>i\ j</del> ^p^</em> = {1,0}, is an indicator for matching <em>i</em>-th default box to the <em>j</em>-th ground truth box of category <em>p</em>.</p>
+<center>Confidence Loss</center>
+
+<p>L<del>conf</del> is the confidence loss which is the softmax loss over multiple classes confidences (c). (α is set to 1 by cross validation.).</p>
 
         <h2 id="Scales-and-Aspect-Ratios-of-Default-Boxes"   >
           <a href="#Scales-and-Aspect-Ratios-of-Default-Boxes" class="heading-link"><i class="fas fa-link"></i></a><a href="#Scales-and-Aspect-Ratios-of-Default-Boxes" class="headerlink" title="Scales and Aspect Ratios of Default Boxes"></a>Scales and Aspect Ratios of Default Boxes</h2>
       <p><img src="/SSD/8.png" alt="8"></p>
-<p><strong>Scale of Default Boxes</strong></p>
+<center>Scale of default boxes</center>
+
 <p>Suppose we have <em>m</em> feature maps for prediction, we can calculate <em>S<del>k</del></em> for the <em>k</em>-th feature map. S<del>min</del> is 0.2, S<del>max</del> is 0.9. That means the scale at the lowest layer is 0.2 and the scale at the highest layer is 0.9. All layers in between is regularly spaced.</p>
 <p>For each scale, S<del>K</del>, we have 5 non-square aspect ratios:</p>
 <p><img src="/SSD/9.png" alt="9"><img src="/SSD/10.png" alt="10"><img src="/SSD/11.png" alt="11"></p>
@@ -121,7 +125,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p>a)  entire original input image</p>
 <p>b)  Sample a patch so that the overlap with objects is 0.1, 0.3, 0.5, 0.7 or 0.9.</p>
 <p>c)  Randomly sample a patch</p>
-<p>The size of each sampled patch is [0.1, 1] or original image size, and aspect ratio from 1/2 to 2.** After the above steps, each sampled patch will be resized to fixed size and maybe horizontally flipped with probability of 0.5, in addition to some photo-metric distortions.**</p>
+<p>The size of each sampled patch is [0.1, 1] or original image size, and aspect ratio from 1/2 to 2.After the above steps, each sampled patch will be resized to fixed size and maybe horizontally flipped with probability of 0.5, in addition to some photo-metric distortions.</p>
 
         <h3 id="Atrous-Convolution-Hole-Algorithm-Dilated-Convolution"   >
           <a href="#Atrous-Convolution-Hole-Algorithm-Dilated-Convolution" class="heading-link"><i class="fas fa-link"></i></a><a href="#Atrous-Convolution-Hole-Algorithm-Dilated-Convolution" class="headerlink" title="Atrous Convolution (Hole Algorithm / Dilated Convolution)"></a>Atrous Convolution (Hole Algorithm / Dilated Convolution)</h3>
@@ -132,49 +136,56 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 
         <h2 id="Results"   >
           <a href="#Results" class="heading-link"><i class="fas fa-link"></i></a><a href="#Results" class="headerlink" title="Results"></a>Results</h2>
-      <p>There are two Models: SSD300 and SSD512. SSD300: 300×300 input image, lower resolution, faster.<br>SSD512: 512×512 input image, higher resolution, more accurate.</p>
+      <p>There are two Models: SSD300 and SSD512. SSD300: 300×300 input image, lower resolution, faster. SSD512: 512×512 input image, higher resolution, more accurate.</p>
 
         <h3 id="Model-Analysis"   >
           <a href="#Model-Analysis" class="heading-link"><i class="fas fa-link"></i></a><a href="#Model-Analysis" class="headerlink" title="Model Analysis"></a>Model Analysis</h3>
       <p><img src="/SSD/13.png" alt="13"></p>
-<p><strong>Model analysis</strong></p>
+<center>Model analysis</center>
+
 <p>a)  Data Augmentation is crucial, which improves from 65.5% to 74.3% mAP.</p>
 <p>b)  With more default box shapes, it improves from 71.6% to 74.3% mAP.</p>
 <p>c)  With Atrous, the result is about the same. But the one without atrous is about 20% slower.</p>
 <p><img src="/SSD/14.png" alt="14"></p>
-<p><strong>Multiple Output Layers at Different Resolutions</strong></p>
+<center>Multiple output layers at different resolutions</center>
+
 <p>是否使用使用boundry boxes? ---- 是否剔除超出边界的bbox</p>
 <p>With more output from conv layers, more bounding boxes are included. Normally, the accuracy is improved from 62.4% to 74.6%. However, the inclusion of conv11_2 makes the result worse. Authors think that boxes are not enough large to cover large objects.</p>
 
         <h3 id="PASCAL-VOC-2007"   >
           <a href="#PASCAL-VOC-2007" class="heading-link"><i class="fas fa-link"></i></a><a href="#PASCAL-VOC-2007" class="headerlink" title="PASCAL VOC 2007"></a>PASCAL VOC 2007</h3>
       <p><img src="/SSD/15.png" alt="15"></p>
-<p>Pascal VOC 2007 Dataset</p>
+<center>Detetcion results on PASCAL VOC2007</center>
+
 <p>a)  更多的训练图片带来更好的检测准确率</p>
 <p>b)  SSD512有68.0%的mAP 并且SSD300有71.6% mAP 都优于Faster R-CNN的69.9%mAP.</p>
 
         <h3 id="PASCAL-VOC-2012"   >
           <a href="#PASCAL-VOC-2012" class="heading-link"><i class="fas fa-link"></i></a><a href="#PASCAL-VOC-2012" class="headerlink" title="PASCAL VOC 2012"></a>PASCAL VOC 2012</h3>
       <p><img src="/SSD/16.png" alt="16"></p>
-<p><strong>Pascal VOC 2012 Dataset</strong></p>
+<center>Detection Results on PASCAL VOC2012</center>
+
 
         <h3 id="MS-COCO"   >
           <a href="#MS-COCO" class="heading-link"><i class="fas fa-link"></i></a><a href="#MS-COCO" class="headerlink" title="MS COCO"></a>MS COCO</h3>
       <p><img src="/SSD/17.png" alt="17"></p>
-<p><strong>MS COCO Dataset</strong></p>
+<center>Detection results on MS COCO</center>
+
 <p>a)  SSD512 is only 1.2% better than Faster R-CNN in mAP@0.5. This is because it has much better AP (4.8%) and AR (4.6%) for larger objects, but has relatively less improvement in AP (1.3%) and AR (2.0%) for small objects.</p>
 <p>b)  Faster R-CNN is more competitive on smaller objects with SSD. Authors believe it is due to the RPN-based approaches which consist of two shots(在RPN阶段和分类预测都有offset调整).</p>
 
         <h3 id="Data-Augmentation-for-Small-Object-Accuracy"   >
           <a href="#Data-Augmentation-for-Small-Object-Accuracy" class="heading-link"><i class="fas fa-link"></i></a><a href="#Data-Augmentation-for-Small-Object-Accuracy" class="headerlink" title="Data Augmentation for Small Object Accuracy"></a>Data Augmentation for Small Object Accuracy</h3>
-      <p>To overcome the weakness of missing detection on small object as mentioned in 6.4, “zoom out” operation is done to create more small training samples.** **And an increase of 2%-3% mAP is achieved across multiple datasets as shown below:</p>
+      <p>To overcome the weakness of missing detection on small object as mentioned in 6.4, “zoom out” operation is done to create more small training samples.And an increase of 2%-3% mAP is achieved across multiple datasets as shown below:</p>
 <p><img src="/SSD/18.png" alt="18"></p>
-<p><strong>Data Augmentation for Small Object Accuracy</strong></p>
+<center>Data augmentation for small object accuracy</center>
+
 
         <h3 id="Inference-Time"   >
           <a href="#Inference-Time" class="heading-link"><i class="fas fa-link"></i></a><a href="#Inference-Time" class="headerlink" title="Inference Time"></a>Inference Time</h3>
       <p><img src="/SSD/19.png" alt="19"></p>
-<p><strong>Inference Time</strong></p>
+<center>Inference time</center>
+
 
         <h2 id="Appendix"   >
           <a href="#Appendix" class="heading-link"><i class="fas fa-link"></i></a><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2>
