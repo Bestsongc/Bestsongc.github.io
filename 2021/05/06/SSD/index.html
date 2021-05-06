@@ -1,34 +1,35 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="SSD：Single Shot MultiBox Detector">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Blog">
+<meta property="og:title" content="Object Detection --- SSD">
 <meta property="og:url" content="http://bestsongc.github.io/2021/05/06/SSD/index.html">
 <meta property="og:site_name" content="Bestsong &amp;&amp; Bestliu">
 <meta property="og:description" content="SSD：Single Shot MultiBox Detector">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://bestsongc.github.io/SSD/1.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image2.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image3.PNG">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image4.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image5.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image6.PNG">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image7.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image8.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image9.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image10.PNG">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image11.PNG">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image12.PNG">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image13.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image14.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image15.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image16.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image17.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image18.png">
-<meta property="og:image" content="d:/blog/Hexo/source_posts/media/image19.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/2.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/3.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/4.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/5.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/6.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/7.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/8.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/9.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/10.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/11.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/12.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/13.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/14.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/15.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/16.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/17.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/18.png">
+<meta property="og:image" content="http://bestsongc.github.io/SSD/19.png">
 <meta property="article:published_time" content="2021-05-06T06:48:17.196Z">
-<meta property="article:modified_time" content="2021-05-06T06:56:39.931Z">
+<meta property="article:modified_time" content="2021-05-06T07:16:43.581Z">
 <meta property="article:author" content="Chen Song">
+<meta property="article:tag" content="SSD">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://bestsongc.github.io/SSD/1.png"><title>Blog | Bestsong &amp;&amp; Bestliu</title><link ref="canonical" href="http://bestsongc.github.io/2021/05/06/SSD/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+<meta name="twitter:image" content="http://bestsongc.github.io/SSD/1.png"><title>Object Detection --- SSD | Bestsong &amp;&amp; Bestliu</title><link ref="canonical" href="http://bestsongc.github.io/2021/05/06/SSD/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
   algolia: undefined,
@@ -52,28 +53,28 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/reading/"><span class="header-nav-menu-item__icon"><i class="fas fa-book"></i></span><span class="header-nav-menu-item__text">Reading</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/image/"><span class="header-nav-menu-item__icon"><i class="fas fa-image"></i></span><span class="header-nav-menu-item__text">Image</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Bestsong &amp;&amp; Bestliu</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Blog</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-05-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-05-06</span></span></div></header><div class="post-body">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/reading/"><span class="header-nav-menu-item__icon"><i class="fas fa-book"></i></span><span class="header-nav-menu-item__text">Reading</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/image/"><span class="header-nav-menu-item__icon"><i class="fas fa-image"></i></span><span class="header-nav-menu-item__text">Image</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Bestsong &amp;&amp; Bestliu</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Object Detection --- SSD</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-05-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-05-06</span></span></div></header><div class="post-body">
         <h1 id="SSD-Single-Shot-MultiBox-Detector"   >
           <a href="#SSD-Single-Shot-MultiBox-Detector" class="heading-link"><i class="fas fa-link"></i></a><a href="#SSD-Single-Shot-MultiBox-Detector" class="headerlink" title="SSD: Single Shot MultiBox Detector"></a>SSD: Single Shot MultiBox Detector</h1>
-      <p>单阶段检测器，SSD300 achieves 74.3% mAP at 59 FPS while** <strong>SSD500 achieves 76.9% mAP at 22 FPS。使用数据增强技巧后，SSD300 achieves 77.2% mAP while</strong> **SSD500 achieves 79.8% mAP。</p>
+      <p>单阶段检测器，SSD300 achieves 74.3% mAP at 59 FPS while** SSD500 achieves 76.9% mAP at 22 FPS。使用数据增强技巧后，SSD300 achieves 77.2% mAP while **SSD500 achieves 79.8% mAP。</p>
 
         <h2 id="Overview"   >
           <a href="#Overview" class="heading-link"><i class="fas fa-link"></i></a><a href="#Overview" class="headerlink" title="Overview"></a><strong>Overview</strong></h2>
       <p>作为one-stage模型，SSD以VGG-16为主干网络，在不同尺度的feature maps下进行辨别的工作，这样的机制被称为 <em>Pyramidal Feature Hierarchy</em>。</p>
 <p><img src="/SSD/1.png" alt="1"></p>
-<p><em><strong>SSD overview</strong></em></p>
+<p><strong>SSD overview</strong></p>
 
         <h2 id="MultiBox-Detector"   >
           <a href="#MultiBox-Detector" class="heading-link"><i class="fas fa-link"></i></a><a href="#MultiBox-Detector" class="headerlink" title="MultiBox Detector"></a><strong>MultiBox Detector</strong></h2>
-      <p><img src="D:\blog\Hexo\source_posts\media\image2.png">{width=”5.218055555555556in” height=”1.9405938320209974in”}</p>
+      <p><img src="/SSD/2.png" alt="2"></p>
 <p>a)  After going through a certain of convolutions for feature extraction, we obtain <strong>a feature layer of size <em><strong>m</strong></em>×*</strong>n (<em>8×8 or 4×4) with P channels. And a 3×3 conv is applied on this <em>m</em>×</em>n<em>×</em>p* feature layer.</p>
 <p>b)  **For each location, we got <em><strong>k</strong></em> bounding boxes. **These k bounding boxes have different sizes and aspect ratios.</p>
-<p>c)  **For each of the bounding box, we will compute <em>c</em> class scores and 4 offsets relative to the original default bounding box shape.**Thus, we got **(<em>c</em>+<strong>4</strong>)<strong><em>kmn*</em> *<strong>outputs</strong>.</strong></p>
+<p>c)  **For each of the bounding box, we will compute <em>c</em> class scores and 4 offsets relative to the original default bounding box shape.<strong>Thus, we got (<em>c</em>+4</strong>)<strong><em>kmn*</em> *outputs.</strong></p>
 
         <h2 id="3-SSD300-Network-Architecture"   >
           <a href="#3-SSD300-Network-Architecture" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-SSD300-Network-Architecture" class="headerlink" title="3. SSD300 Network Architecture"></a>3. <strong>SSD300 Network Architecture</strong></h2>
-      <p><img src="D:\blog\Hexo\source_posts\media\image3.PNG">{width=”5.168316929133859in” height=”2.8647878390201225in”}</p>
-<p>A<strong>t Conv4_3, it is of size 38×38×512</strong> and <strong>3×3 conv is applied.</strong> And there are <strong>4 bounding boxes</strong> and <strong>each bounding box will have (classes + 4) outputs.</strong> Thus, at Conv4_3, the output is 38×38×4×(<em>c</em>+4). Suppose there are 20 object classes plus one background class, the output is 38×38×4×(21+4) = 144,400. <strong>In terms of number of bounding boxes, there are 38×38×4 = 5776 bounding boxes.</strong></p>
+      <p><img src="/SSD/3.png" alt="3"></p>
+<p>At Conv4_3, it is of size 38×38×512 and 3×3 conv is applied. And there are 4 bounding boxes and each bounding box will have (classes + 4) outputs. Thus, at Conv4_3, the output is 38×38×4×(<em>c</em>+4). Suppose there are 20 object classes plus one background class, the output is 38×38×4×(21+4) = 144,400. In terms of number of bounding boxes, there are 38×38×4 = 5776 bounding boxes.</p>
 <p>a)  Conv4: 38×38×4 = 5776 boxes (4 boxes for each location)</p>
 <p>b)  Conv7: 19×19×6 = 2166 boxes (6 boxes for each location)</p>
 <p>c)  Conv8_2: 10×10×6 = 600 boxes (6 boxes for each location)</p>
@@ -81,30 +82,30 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p>e)  Conv10_2: 3×3×4 = 36 boxes (4 boxes for each location)</p>
 <p>f)  Conv11_2: 1×1×4 = 4 boxes (4 boxes for each location)</p>
 <p><strong>There are 5776 + 2166 + 600 + 150 + 36 +4</strong> = <strong>8732 boxes in total</strong></p>
-<p>取出了feature map之後，SSD會讓它先通過一次3×3的卷積來得到真正用來作為detector的神经层。而卷積的深度就是和剛剛default box有關。若假定default box數量是D，而目標類別有C個類別，邊界框有4個值(x座標，y座標，w寬度，h高度)的偏差量(offsets)，所以深度的計算就是等於D×(4+C)。</p>
+<p>取出feature map之后，SSD通过一次3×3的卷积得到用于detector的神经层。而卷积的深度就是与default box有关。若假定default box数量为D，而目标类别有C个类别，边界框有4个值(x，y，w，h)的偏差量(offsets)，所以深度的计算就是D×(4+C)。</p>
 
         <h2 id="4-Loss-Function"   >
           <a href="#4-Loss-Function" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-Loss-Function" class="headerlink" title="4. Loss Function"></a>4. Loss Function</h2>
-      <p><img src="D:\blog\Hexo\source_posts\media\image4.png">{width=”2.514851268591426in” height=”0.3027755905511811in”}</p>
+      <p><img src="/SSD/4.png" alt="4"></p>
 <p>The loss function consists of two terms: L<del>conf</del> and L<del>loc</del> where N is the matched default boxes.</p>
-<p><img src="D:\blog\Hexo\source_posts\media\image5.png">{width=”2.4404822834645667in” height=”0.8597222222222223in”}</p>
+<p><img src="/SSD/5.png" alt="5"></p>
 <p><strong>Localization Loss</strong></p>
 <p>L<del>loc</del> is the localization loss which is the smooth L1 loss between the predicted box (l) and the ground-truth box (g) parameters. These parameters include the offsets for the center point (cx, cy), width (w) and height (h) of the default bounding box. This loss is similar to the one in Faster R-CNN.</p>
-<p><img src="D:\blog\Hexo\source_posts\media\image6.PNG">{width=”2.2673272090988625in” height=”0.4624890638670166in”}</p>
+<p><img src="/SSD/6.png" alt="6"></p>
 <p><strong>smooth L1函数</strong></p>
-<p><img src="D:\blog\Hexo\source_posts\media\image7.png">{width=”3.5425481189851267in” height=”0.41584208223972in”}</p>
+<p><img src="/SSD/7.png" alt="7"></p>
 <p><strong>Confidence Loss</strong></p>
 <p>L<del>conf</del> is the confidence loss which is the softmax loss over multiple classes confidences (c). (α is set to 1 by cross validation.) <em>x<del>i\ j</del> ^p^</em> = {1,0}, is an indicator for matching <em>i</em>-th default box to the <em>j</em>-th ground truth box of category <em>p</em>.</p>
 
         <h2 id="5-Scales-and-Aspect-Ratios-of-Default-Boxes"   >
           <a href="#5-Scales-and-Aspect-Ratios-of-Default-Boxes" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-Scales-and-Aspect-Ratios-of-Default-Boxes" class="headerlink" title="**5. **Scales and Aspect Ratios of Default Boxes"></a>**5. **Scales and Aspect Ratios of Default Boxes</h2>
-      <p><img src="D:\blog\Hexo\source_posts\media\image8.png">{width=”2.188118985126859in” height=”0.23946522309711285in”}</p>
+      <p><img src="/SSD/8.png" alt="8"></p>
 <p><strong>Scale of Default Boxes</strong></p>
 <p>Suppose we have <em>m</em> feature maps for prediction, we can calculate <em>S<del>k</del></em> for the <em>k</em>-th feature map. S<del>min</del> is 0.2, S<del>max</del> is 0.9. That means the scale at the lowest layer is 0.2 and the scale at the highest layer is 0.9. All layers in between is regularly spaced.</p>
 <p>For each scale, S<del>K</del>, we have 5 non-square aspect ratios:</p>
-<p><img src="D:\blog\Hexo\source_posts\media\image9.png">{width=”0.8988692038495188in” height=”0.20297025371828523in”}<img src="D:\blog\Hexo\source_posts\media\image10.PNG">{width=”0.8960400262467192in” height=”0.18085192475940506in”}<img src="D:\blog\Hexo\source_posts\media\image11.PNG">{width=”1.0702066929133858in” height=”0.20297025371828523in”}</p>
+<p><img src="/SSD/9.png" alt="9"><img src="/SSD/10.png" alt="10"><img src="/SSD/11.png" alt="11"></p>
 <p>For aspect ratio of 1:1, we got S<del>k</del>^’^:</p>
-<p><img src="D:\blog\Hexo\source_posts\media\image12.PNG">{width=”1.2449409448818898in” height=”0.23762357830271216in”}</p>
+<p><img src="/SSD/12.png" alt="12"></p>
 <p>Therefore, we can have at most 6 bounding boxes in total with different aspect ratios. For layers with only 4 bounding boxes, a<del>r</del> = 1/3 and 3 are omitted.</p>
 
         <h2 id="6-Details-of-Training"   >
@@ -120,7 +121,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p>a)  entire original input image</p>
 <p>b)  Sample a patch so that the overlap with objects is 0.1, 0.3, 0.5, 0.7 or 0.9.</p>
 <p>c)  Randomly sample a patch</p>
-<p>The size of each sampled patch is [0.1, 1]** <strong>or original image size, and aspect ratio from 1/2 to 2</strong>.** After the above steps, each sampled patch will be resized to fixed size** <strong>and maybe</strong> <strong>horizontally flipped with probability of 0.5, in addition to some photo-metric distortions</strong>.**</p>
+<p>The size of each sampled patch is [0.1, 1] or original image size, and aspect ratio from 1/2 to 2.** After the above steps, each sampled patch will be resized to fixed size and maybe horizontally flipped with probability of 0.5, in addition to some photo-metric distortions.**</p>
 
         <h3 id="6-3-Atrous-Convolution-Hole-Algorithm-Dilated-Convolution"   >
           <a href="#6-3-Atrous-Convolution-Hole-Algorithm-Dilated-Convolution" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-3-Atrous-Convolution-Hole-Algorithm-Dilated-Convolution" class="headerlink" title="6.3 Atrous Convolution (Hole Algorithm / Dilated Convolution)"></a>6.3 Atrous Convolution (Hole Algorithm / Dilated Convolution)</h3>
@@ -135,31 +136,31 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 
         <h3 id="7-1-Model-Analysis"   >
           <a href="#7-1-Model-Analysis" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-1-Model-Analysis" class="headerlink" title="7.1 Model Analysis"></a>7.1 Model Analysis</h3>
-      <p><img src="D:\blog\Hexo\source_posts\media\image13.png">{width=”3.831683070866142in” height=”1.1860411198600176in”}</p>
+      <p><img src="/SSD/13.png" alt="13"></p>
 <p><strong>Model analysis</strong></p>
 <p>a)  Data Augmentation is crucial, which improves from 65.5% to 74.3% mAP.</p>
 <p>b)  With more default box shapes, it improves from 71.6% to 74.3% mAP.</p>
 <p>c)  With Atrous, the result is about the same. But the one without atrous is about 20% slower.</p>
-<p><img src="D:\blog\Hexo\source_posts\media\image14.png">{width=”4.079208223972003in” height=”1.2773928258967628in”}</p>
+<p><img src="/SSD/14.png" alt="14"></p>
 <p><strong>Multiple Output Layers at Different Resolutions</strong></p>
 <p>是否使用使用boundry boxes? ---- 是否剔除超出边界的bbox</p>
 <p>With more output from conv layers, more bounding boxes are included. Normally, the accuracy is improved from 62.4% to 74.6%. However, the inclusion of conv11_2 makes the result worse. Authors think that boxes are not enough large to cover large objects.</p>
 
         <h3 id="7-2-PASCAL-VOC-2007"   >
           <a href="#7-2-PASCAL-VOC-2007" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-2-PASCAL-VOC-2007" class="headerlink" title="7.2 PASCAL VOC 2007"></a>7.2 PASCAL VOC 2007</h3>
-      <p><img src="D:\blog\Hexo\source_posts\media\image15.png">{width=”5.768055555555556in” height=”1.4506944444444445in”}</p>
+      <p><img src="/SSD/15.png" alt="15"></p>
 <p>Pascal VOC 2007 Dataset</p>
 <p>a)  更多的训练图片带来更好的检测准确率</p>
 <p>b)  SSD512有68.0%的mAP 并且SSD300有71.6% mAP 都优于Faster R-CNN的69.9%mAP.</p>
 
         <h3 id="7-3-PASCAL-VOC-2012"   >
           <a href="#7-3-PASCAL-VOC-2012" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-3-PASCAL-VOC-2012" class="headerlink" title="7.3 PASCAL VOC 2012"></a>7.3 PASCAL VOC 2012</h3>
-      <p><img src="D:\blog\Hexo\source_posts\media\image16.png">{width=”5.768055555555556in” height=”1.0493055555555555in”}</p>
+      <p><img src="/SSD/16.png" alt="16"></p>
 <p><strong>Pascal VOC 2012 Dataset</strong></p>
 
         <h3 id="7-4-MS-COCO"   >
           <a href="#7-4-MS-COCO" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-4-MS-COCO" class="headerlink" title="7.4 MS COCO"></a>7.4 MS COCO</h3>
-      <p><img src="D:\blog\Hexo\source_posts\media\image17.png">{width=”5.768055555555556in” height=”1.6895833333333334in”}</p>
+      <p><img src="/SSD/17.png" alt="17"></p>
 <p><strong>MS COCO Dataset</strong></p>
 <p>a)  SSD512 is only 1.2% better than Faster R-CNN in mAP@0.5. This is because it has much better AP (4.8%) and AR (4.6%) for larger objects, but has relatively less improvement in AP (1.3%) and AR (2.0%) for small objects.</p>
 <p>b)  Faster R-CNN is more competitive on smaller objects with SSD. Authors believe it is due to the RPN-based approaches which consist of two shots(在RPN阶段和分类预测都有offset调整).</p>
@@ -167,12 +168,12 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
         <h3 id="7-5-Data-Augmentation-for-Small-Object-Accuracy"   >
           <a href="#7-5-Data-Augmentation-for-Small-Object-Accuracy" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-5-Data-Augmentation-for-Small-Object-Accuracy" class="headerlink" title="7.5 Data Augmentation for Small Object Accuracy"></a>7.5 Data Augmentation for Small Object Accuracy</h3>
       <p>To overcome the weakness of missing detection on small object as mentioned in 6.4, “zoom out” operation is done to create more small training samples.** **And an increase of 2%-3% mAP is achieved across multiple datasets as shown below:</p>
-<p><img src="D:\blog\Hexo\source_posts\media\image18.png">{width=”5.768055555555556in” height=”1.2944444444444445in”}</p>
+<p><img src="/SSD/18.png" alt="18"></p>
 <p><strong>Data Augmentation for Small Object Accuracy</strong></p>
 
         <h3 id="7-6-Inference-Time"   >
           <a href="#7-6-Inference-Time" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-6-Inference-Time" class="headerlink" title="7.6 Inference Time"></a>7.6 Inference Time</h3>
-      <p><img src="D:\blog\Hexo\source_posts\media\image19.png">{width=”5.768055555555556in” height=”1.7055555555555555in”}</p>
+      <p><img src="/SSD/19.png" alt="19"></p>
 <p><strong>Inference Time</strong></p>
 
         <h2 id="Appendix"   >
@@ -188,7 +189,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p>深度学习必须要了解的技巧： [ ]{.underline}</p>
 <p>作者github：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/weiliu89/caffe/tree/ssd" >[https://github.com/weiliu89/caffe/tree/ssd]{.underline}</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p>Pytorch-SSD：[[<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/amdegroot/ssd.pytorch]%7B.underline%7D]" >https://github.com/amdegroot/ssd.pytorch]{.underline}]</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>(</p>
-</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="http://bestsongc.github.io">Chen Song</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="http://bestsongc.github.io/2021/05/06/SSD/">http://bestsongc.github.io/2021/05/06/SSD/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/05/06/Blog/"><span class="paginator-prev__text">Blog</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC81MzQwMi8yOTg3Ng"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSD-Single-Shot-MultiBox-Detector"><span class="toc-number">1.</span> <span class="toc-text">
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="http://bestsongc.github.io">Chen Song</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="http://bestsongc.github.io/2021/05/06/SSD/">http://bestsongc.github.io/2021/05/06/SSD/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://bestsongc.github.io/tags/SSD/">SSD</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/05/06/Blog/"><span class="paginator-prev__text">Blog</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC81MzQwMi8yOTg3Ng"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSD-Single-Shot-MultiBox-Detector"><span class="toc-number">1.</span> <span class="toc-text">
           SSD: Single Shot MultiBox Detector</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Overview"><span class="toc-number">1.1.</span> <span class="toc-text">
           Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MultiBox-Detector"><span class="toc-number">1.2.</span> <span class="toc-text">
           MultiBox Detector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-SSD300-Network-Architecture"><span class="toc-number">1.3.</span> <span class="toc-text">
@@ -206,7 +207,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
           7.4 MS COCO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-Data-Augmentation-for-Small-Object-Accuracy"><span class="toc-number">1.7.5.</span> <span class="toc-text">
           7.5 Data Augmentation for Small Object Accuracy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-Inference-Time"><span class="toc-number">1.7.6.</span> <span class="toc-text">
           7.6 Inference Time</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appendix"><span class="toc-number">1.8.</span> <span class="toc-text">
-          Appendix</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/avatar.png" alt="avatar"></div><p class="sidebar-ov-author__text">Hello World</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-google"></i></span></a><a class="sidebar-ov-social-item" href="https://twitter.com/" target="_blank" rel="noopener" data-popover="Twitter" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-twitter"></i></span></a><a class="sidebar-ov-social-item" href="https://youtube.com/" target="_blank" rel="noopener" data-popover="Youtube" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-youtube"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/" target="_blank" rel="noopener" data-popover="Segmentfault" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a><a class="sidebar-ov-social-item" href="https://weibo.com/" target="_blank" rel="noopener" data-popover="Weibo" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weibo"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="yournumber" target="_blank" rel="noopener" data-popover="Wechat" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a><a class="sidebar-ov-social-item" href="yournumber" target="_blank" rel="noopener" data-popover="Telegram" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-telegram"></i></span></a><a class="sidebar-ov-social-item" href="yournumber" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">0</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">0</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Chen Song</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script>function loadLivere () {
+          Appendix</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/avatar.png" alt="avatar"></div><p class="sidebar-ov-author__text">Hello World</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-google"></i></span></a><a class="sidebar-ov-social-item" href="https://twitter.com/" target="_blank" rel="noopener" data-popover="Twitter" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-twitter"></i></span></a><a class="sidebar-ov-social-item" href="https://youtube.com/" target="_blank" rel="noopener" data-popover="Youtube" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-youtube"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/" target="_blank" rel="noopener" data-popover="Segmentfault" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a><a class="sidebar-ov-social-item" href="https://weibo.com/" target="_blank" rel="noopener" data-popover="Weibo" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weibo"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="yournumber" target="_blank" rel="noopener" data-popover="Wechat" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a><a class="sidebar-ov-social-item" href="yournumber" target="_blank" rel="noopener" data-popover="Telegram" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-telegram"></i></span></a><a class="sidebar-ov-social-item" href="yournumber" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Chen Song</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script>function loadLivere () {
   var d = document, s = d.createElement('script');
 
   if (!d.getElementById('lv-container')) {
