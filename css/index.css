@@ -2129,6 +2129,9 @@ kbd {
 .fb-comments iframe {
   width: 100% !important;
 }
+#lv-container {
+  width: 100%;
+}
 .copy-button {
   position: absolute;
   top: 0;
